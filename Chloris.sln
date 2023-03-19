@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A457DFC6-36DF-48C7-B490-47CD8D235EEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chloris.Rfid", "Chloris.Rfid\Chloris.Rfid.csproj", "{1B06D81F-1232-46C4-A9B7-88E97ED5E842}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Win32", "Chloris.Win32\Chloris.Win32.csproj", "{5AA5FD5B-2248-4511-B945-7604EDFBA451}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Win32.Test", "tests\Chloris.Win32.Test\Chloris.Win32.Test.csproj", "{66FC9D35-2711-432F-A08C-F576F77C23FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helpers", "helpers", "{C71C9382-5FEB-4D05-B5C8-A450D8FA34AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.AutomationHelper", "helpers\Chloris.AutomationHelper\Chloris.AutomationHelper.csproj", "{325E5103-D01A-478D-9392-9EBD10BDF764}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B06D81F-1232-46C4-A9B7-88E97ED5E842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B06D81F-1232-46C4-A9B7-88E97ED5E842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B06D81F-1232-46C4-A9B7-88E97ED5E842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B06D81F-1232-46C4-A9B7-88E97ED5E842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AA5FD5B-2248-4511-B945-7604EDFBA451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AA5FD5B-2248-4511-B945-7604EDFBA451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AA5FD5B-2248-4511-B945-7604EDFBA451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AA5FD5B-2248-4511-B945-7604EDFBA451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66FC9D35-2711-432F-A08C-F576F77C23FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66FC9D35-2711-432F-A08C-F576F77C23FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66FC9D35-2711-432F-A08C-F576F77C23FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66FC9D35-2711-432F-A08C-F576F77C23FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{325E5103-D01A-478D-9392-9EBD10BDF764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{325E5103-D01A-478D-9392-9EBD10BDF764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{325E5103-D01A-478D-9392-9EBD10BDF764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{325E5103-D01A-478D-9392-9EBD10BDF764}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66FC9D35-2711-432F-A08C-F576F77C23FA} = {A457DFC6-36DF-48C7-B490-47CD8D235EEC}
+		{325E5103-D01A-478D-9392-9EBD10BDF764} = {C71C9382-5FEB-4D05-B5C8-A450D8FA34AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8703FE94-B1D2-4032-B40D-A23D966AC28B}
+	EndGlobalSection
+EndGlobal
