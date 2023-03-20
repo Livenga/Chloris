@@ -40,6 +40,21 @@ public static class User32
     [DllImport(L, EntryPoint = nameof(GetWindow), SetLastError = true, CharSet = CharSet.Auto)]
     public static extern IntPtr GetWindow([In]IntPtr hWnd, [In]uint uCmd);
 
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(GetAncestor), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Auto)]
+    public static extern IntPtr GetAncestor([In]IntPtr hWnd, [In]uint gaFlags);
+
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(GetParent), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Auto)]
+    public static extern IntPtr GetParent(IntPtr hWnd);
+
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(WindowFromPhysicalPoint), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Auto)]
+    public static extern IntPtr WindowFromPhysicalPoint([In]Point point);
+
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(GetCursorPos), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Auto)]
+    public static extern bool GetCursorPos([Out]out Point lpPoint);
 
     /// <summary></summary>
     [DllImport(L, EntryPoint = nameof(GetWindowModuleFileNameA), SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = false)]
@@ -110,7 +125,7 @@ public static class User32
 
     /// <summary></summary>
     [DllImport(L, EntryPoint = nameof(SendMessageA), ExactSpelling = false, SetLastError = true, CharSet = CharSet.Ansi)]
-    public static extern int SendMessageA(
+    public static extern IntPtr SendMessageA(
             [In]IntPtr hWnd,
             [In]uint msg,
             [In,Out]IntPtr wParam,
@@ -118,7 +133,7 @@ public static class User32
 
     /// <summary></summary>
     [DllImport(L, EntryPoint = nameof(SendMessageW), ExactSpelling = false, SetLastError = true, CharSet = CharSet.Ansi)]
-    public static extern int SendMessageW(
+    public static extern IntPtr SendMessageW(
             [In]IntPtr hWnd,
             [In]uint msg,
             [In,Out]IntPtr wParam,
@@ -172,7 +187,7 @@ public static class User32
     }
 
     /// <summary></summary>
-    public static int SendMessage(
+    public static IntPtr SendMessage(
             IntPtr hWnd,
             uint   msg,
             IntPtr wParam,

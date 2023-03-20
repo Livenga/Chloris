@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,6 +52,13 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\SelectorOpeartionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectorOpeartionControl.Designer.cs">
+      <DependentUpon>SelectorOpeartionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ControlInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +67,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\SelectorOpeartionControl.resx">
+      <DependentUpon>SelectorOpeartionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,10 +96,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Chloris.Extends\Chloris.Extends.csproj">
+      <Project>{3162a5a1-31d3-4f66-8282-c3ce80863005}</Project>
+      <Name>Chloris.Extends</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chloris.Win32\Chloris.Win32.csproj">
       <Project>{5aa5fd5b-2248-4511-b945-7604edfba451}</Project>
       <Name>Chloris.Win32</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

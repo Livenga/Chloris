@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helpers", "helpers", "{C71C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.AutomationHelper", "helpers\Chloris.AutomationHelper\Chloris.AutomationHelper.csproj", "{325E5103-D01A-478D-9392-9EBD10BDF764}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Extends", "Chloris.Extends\Chloris.Extends.csproj", "{3162A5A1-31D3-4F66-8282-C3CE80863005}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{325E5103-D01A-478D-9392-9EBD10BDF764}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{325E5103-D01A-478D-9392-9EBD10BDF764}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{325E5103-D01A-478D-9392-9EBD10BDF764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
