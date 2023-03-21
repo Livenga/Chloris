@@ -7,8 +7,14 @@ using System;
 public interface IUhf : IDisposable
 {
     /// <summary></summary>
-    bool Connect();
+    Config? Config { set; get; }
 
     /// <summary></summary>
-    bool Disconnect();
+    bool IsConnected { get; }
+
+    /// <summary></summary>
+    bool Open();
+
+    /// <summary></summary>
+    bool Close();
 }

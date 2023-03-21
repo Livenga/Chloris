@@ -1,7 +1,6 @@
 namespace Chloris.Rfid;
 
 using Org.LLRP.LTK.LLRPV1;
-using Org.LLRP.LTK.LLRPV1.DataType;
 using System;
 
 
@@ -9,39 +8,69 @@ using System;
 public abstract class AbsLLRPReader : IUhf
 {
     /// <summary></summary>
-    public bool IsConnected => _client.IsConnected;
+    public Config? Config { set; get; } = null;
 
     /// <summary></summary>
-    protected LLRPClient LLRPClient => _client;
+    public bool IsConnected => _client?.IsConnected ?? false;
+
+    /// <summary></summary>
+    protected LLRPClient? LLRPClient => _client;
 
 
-    private readonly LLRPClient _client;
+    private LLRPClient? _client = null;
 
 
     /// <summary></summary>
-    public AbsLLRPReader()
+    public AbsLLRPReader() { }
+
+
+    /// <summary></summary>
+    public virtual bool Open()
     {
-        _client = new LLRPClient();
+        if(IsConnected)
+            return true;
+
+        if(Config == null)
+            throw new NullReferenceException();
+
+        _client?.Dispose();
+        _client = new LLRPClient(Config.Port);
+
+        ENUM_ConnectionAttemptStatusType status;
+        var isOpened = _client.Open(
+                llrp_reader_name: Config.Hostname,
+                timeout:          Config.Timeout,
+                useTLS:           Config.UseTls,
+                status:           out status);
+
+        if(! isOpened || status != ENUM_ConnectionAttemptStatusType.Success)
+        {
+            _client.Dispose();
+            _client = null;
+
+            return false;
+        }
+
+        return true;
     }
 
 
     /// <summary></summary>
-    public abstract bool Connect();
-
-
-    /// <summary></summary>
-    public bool Disconnect()
+    public virtual bool Close()
     {
         // TODO 例外にする?
-        if(! IsConnected)
-            return true;
+        if(IsConnected)
+            _client?.Close();
 
-        throw new NotImplementedException();
+        _client?.Dispose();
+        _client = null;
+
+        return true;
     }
 
     /// <summary></summary>
     public void Dispose()
     {
-        _client.Dispose();
+        Close();
     }
 }
