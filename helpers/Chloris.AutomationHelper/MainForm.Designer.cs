@@ -71,6 +71,8 @@
             this.controlOperationTab = new System.Windows.Forms.TabControl();
             this.comboBoxPage = new System.Windows.Forms.TabPage();
             this.selectorOperator = new Chloris.AutomationHelper.Controls.SelectorOpeartionControl();
+            this.textPage = new System.Windows.Forms.TabPage();
+            this.textOperator = new Chloris.AutomationHelper.Controls.TextBoxOperationControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -89,6 +91,7 @@
             this.targetGroup.SuspendLayout();
             this.controlOperationTab.SuspendLayout();
             this.comboBoxPage.SuspendLayout();
+            this.textPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -564,6 +567,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.controlOperationTab.Controls.Add(this.comboBoxPage);
+            this.controlOperationTab.Controls.Add(this.textPage);
             this.controlOperationTab.Location = new System.Drawing.Point(12, 112);
             this.controlOperationTab.Name = "controlOperationTab";
             this.controlOperationTab.SelectedIndex = 0;
@@ -588,8 +592,31 @@
             this.selectorOperator.Location = new System.Drawing.Point(3, 3);
             this.selectorOperator.Margin = new System.Windows.Forms.Padding(22, 364, 22, 364);
             this.selectorOperator.Name = "selectorOperator";
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
             this.selectorOperator.Size = new System.Drawing.Size(749, 445);
             this.selectorOperator.TabIndex = 0;
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
+            // 
+            // textPage
+            // 
+            this.textPage.Controls.Add(this.textOperator);
+            this.textPage.Location = new System.Drawing.Point(4, 22);
+            this.textPage.Name = "textPage";
+            this.textPage.Padding = new System.Windows.Forms.Padding(3);
+            this.textPage.Size = new System.Drawing.Size(755, 456);
+            this.textPage.TabIndex = 1;
+            this.textPage.Text = "TextBox";
+            this.textPage.UseVisualStyleBackColor = true;
+            // 
+            // textOperator
+            // 
+            this.textOperator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textOperator.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textOperator.Location = new System.Drawing.Point(3, 3);
+            this.textOperator.Name = "textOperator";
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
+            this.textOperator.Size = new System.Drawing.Size(749, 450);
+            this.textOperator.TabIndex = 0;
 // TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
             // 
             // tableLayoutPanel1
@@ -703,6 +730,7 @@
             this.targetGroup.PerformLayout();
             this.controlOperationTab.ResumeLayout(false);
             this.comboBoxPage.ResumeLayout(false);
+            this.textPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -760,6 +788,8 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TabPage textPage;
+        private Controls.TextBoxOperationControl textOperator;
     }
 }
 

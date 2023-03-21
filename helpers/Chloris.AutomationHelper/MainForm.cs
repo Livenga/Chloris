@@ -217,6 +217,7 @@ public partial class MainForm : Form
 #endif
 
             selectorOperator.NotifyWindowHandle = ci.Handle;
+            textOperator.NotifyWindowHandle = ci.Handle;
         }
     }
 
@@ -233,10 +234,21 @@ public partial class MainForm : Form
 
             try
             {
-                // ComboBox
-                if(ae.Current.ControlType.Id == ControlType.ComboBox.Id)
+                // 個々のページに遷移
+                var controlId = ae.Current.ControlType.Id;
+#if DEBUG
+                Debug.WriteLine($"DEBUG | {controlId} {ae.Current.ControlType.ProgrammaticName}");
+#endif
+
+                if(controlId  == ControlType.ComboBox.Id)
                 {
+                    // ComboBox
                     selectorOperator.TargetHandle = ci.Handle;
+                }
+                else if(controlId == ControlType.Edit.Id)
+                {
+                    // TextBox
+                    textOperator.TargetHandle = ci.Handle;
                 }
             }
             catch(Exception ex)

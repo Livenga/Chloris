@@ -94,7 +94,9 @@ public partial class SelectorOpeartionControl : UserControl
     {
         if(itemList.SelectedIndices.Count == 0)
             return;
-        setCurrentSelectionText.Text = $"{itemList.SelectedIndices[0]}";
+
+        selectionText.ForeColor = Color.Blue;
+        selectionText.Text = $"{itemList.SelectedIndices[0]}";
     }
 
     /// <summary></summary>
@@ -105,15 +107,16 @@ public partial class SelectorOpeartionControl : UserControl
 
         try
         {
-            var index = Chloris.Win32.Controls.Selector.GetCurrentSelection(_targetHandle);
+            var index = Chloris.Win32.Controls.Selector
+                .GetCurrentSelection(_targetHandle);
 
-            getCurrentSelectionText.ForeColor = Color.Blue;
-            getCurrentSelectionText.Text = $"{index}";
+            selectionText.ForeColor = Color.Blue;
+            selectionText.Text = $"{index}";
         }
         catch(Exception ex)
         {
-            getCurrentSelectionText.ForeColor = Color.Coral;
-            getCurrentSelectionText.Text = ex.Message;
+            selectionText.ForeColor = Color.Coral;
+            selectionText.Text      = ex.Message;
 #if DEBUG
             Debug.WriteLine($"ERROR | {ex.GetType().FullName} {ex.Message}");
             Debug.WriteLine(ex.StackTrace);
@@ -128,7 +131,7 @@ public partial class SelectorOpeartionControl : UserControl
         int? index = null;
         try
         {
-            index = System.Convert.ToInt32(setCurrentSelectionText.Text);
+            index = System.Convert.ToInt32(selectionText.Text);
         }
         catch { }
 #if DEBUG
@@ -140,9 +143,38 @@ public partial class SelectorOpeartionControl : UserControl
 
         Win32.Controls.Selector.SetCurrentSelection(_targetHandle, index.Value);
 
-        Win32.Controls.Selector.NotifySelChange(NotifyWindowHandle, _targetHandle);
-        Win32.Controls.Selector.NotifySelectOK(NotifyWindowHandle, _targetHandle);
-        Win32.Controls.Selector.NotifyKillFocus(NotifyWindowHandle, _targetHandle);
+        //Win32.Controls.Selector.NotifySelChange(NotifyWindowHandle, _targetHandle);
+        //Win32.Controls.Selector.NotifySelectOK(NotifyWindowHandle, _targetHandle);
+        //Win32.Controls.Selector.NotifyKillFocus(NotifyWindowHandle, _targetHandle);
+    }
+
+    /// <summary></summary>
+    private void OnSendNotifyClick(object source, EventArgs e)
+    {
+        if(source is Button btn)
+        {
+#if DEBUG
+            Debug.WriteLine($"DEBUG | {GetType().FullName}.{nameof(OnSendNotifyClick)} {btn.Name}");
+#endif
+            switch(btn.Name)
+            {
+                case "notifySetFocusButton":
+                    Win32.Controls.Selector.NotifySetFocus(NotifyWindowHandle, _targetHandle);
+                    break;
+
+                case "notifyKillFocusButton":
+                    Win32.Controls.Selector.NotifyKillFocus(NotifyWindowHandle, _targetHandle);
+                    break;
+
+                case "notifySelChangeButton":
+                    Win32.Controls.Selector.NotifySelChange(NotifyWindowHandle, _targetHandle);
+                    break;
+
+                case "notifySelEndOkButton":
+                    Win32.Controls.Selector.NotifySelEndOk(NotifyWindowHandle, _targetHandle);
+                    break;
+            }
+        }
     }
 #endregion private Events
 }

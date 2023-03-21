@@ -19,7 +19,7 @@ public static class Selector
     private const int CBN_EDITCHANGE = 5;
     private const int CBN_DROPDOWN   = 7;
     private const int CBN_CLOSEUP    = 8;
-    private const int CBN_SELECTOK   = 9;
+    private const int CBN_SELENDOK   = 9;
     private const int CBN_CLICKED    = 11;
 
 
@@ -142,6 +142,6 @@ public static class Selector
         Notify.Send(hWndParent, hWnd, CBN_EDITCHANGE);
 
     /// <summary></summary>
-    public static int NotifySelectOK(IntPtr hWndParent, IntPtr hWnd) =>
-        Notify.Send(hWndParent, hWnd, CBN_SELECTOK);
+    public static int NotifySelEndOk(IntPtr hWndParent, IntPtr hWnd) =>
+        Notify.Send(hWndParent, hWnd, CBN_SELENDOK);
 }

@@ -46,6 +46,7 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Edit.cs" />
     <Compile Include="Controls\Notify.cs" />
     <Compile Include="Controls\Selector.cs" />
     <Compile Include="Extends\ExtdAutomationElement.cs" />

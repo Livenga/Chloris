@@ -58,6 +58,12 @@
     <Compile Include="Controls\SelectorOpeartionControl.Designer.cs">
       <DependentUpon>SelectorOpeartionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TextBoxOperationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxOperationControl.Designer.cs">
+      <DependentUpon>TextBoxOperationControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\ControlInfo.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -69,6 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\SelectorOpeartionControl.resx">
       <DependentUpon>SelectorOpeartionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TextBoxOperationControl.resx">
+      <DependentUpon>TextBoxOperationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
