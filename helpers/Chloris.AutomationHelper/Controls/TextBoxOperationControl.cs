@@ -1,6 +1,7 @@
 ﻿namespace Chloris.AutomationHelper.Controls;
 
 using Chloris.Win32;
+using Chloris.Win32.Extends;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,6 +49,9 @@ public partial class TextBoxOperationControl : UserControl
     /// <summary></summary>
     private void OnSetValueClick(object source, EventArgs e)
     {
+#if DEBUG
+        Debug.WriteLine($"DEBUG | {nameof(OnSetValueClick)} {TargetHandle.ToInt():X} \"{valueText.Text}\"");
+#endif
         if(TargetHandle == IntPtr.Zero)
             return;
 
@@ -68,12 +72,14 @@ public partial class TextBoxOperationControl : UserControl
     /// <summary></summary>
     private void OnGetValueClick(object source, EventArgs e)
     {
+#if DEBUG
+        Debug.WriteLine($"DEBUG | {nameof(OnGetValueClick)} {TargetHandle.ToInt():X}");
+#endif
         if(TargetHandle == IntPtr.Zero)
             return;
 
         var value = Win32.Controls.Edit.GetText(TargetHandle);
-        if(! string.IsNullOrEmpty(value))
-            valueText.Text = value;
+        valueText.Text = value ?? string.Empty;
     }
 
     /// <summary></summary>
@@ -83,8 +89,10 @@ public partial class TextBoxOperationControl : UserControl
         {
             var ret = btn.Name switch
             {
-                "notifyChangeButton" => Win32.Controls.Notify.Send(NotifyWindowHandle, TargetHandle, 0x0300),
-                "notifyUpdateButton" => Win32.Controls.Notify.Send(NotifyWindowHandle, TargetHandle, 0x0400),
+                "notifyChangeButton"    => Win32.Controls.Edit.SendChangeNotify(NotifyWindowHandle, TargetHandle),
+                "notifyUpdateButton"    => Win32.Controls.Edit.SendUpdateNotify(NotifyWindowHandle, TargetHandle),
+                "notifySetFocusButton"  => Win32.Controls.Edit.SendSetFocusNotify(NotifyWindowHandle, TargetHandle),
+                "notifyKillFocusButton" => Win32.Controls.Edit.SendKillFocusNotify(NotifyWindowHandle, TargetHandle),
                 _ => throw new NotSupportedException(),
             };
 
@@ -92,5 +100,34 @@ public partial class TextBoxOperationControl : UserControl
             Debug.WriteLine($"DEBUG | {btn.Name} {ret}");
 #endif
         }
+    }
+
+    /// <summary></summary>
+    private void OnSwitchModifyClick(object source, EventArgs e)
+    {
+        if(TargetHandle == IntPtr.Zero)
+            return;
+
+        if(source is Button btn)
+        {
+            if(btn == enableModifyButton)
+            {
+                Win32.Controls.Edit.SetModify(TargetHandle, true);
+            }
+            else if(btn == disableModifyButton)
+            {
+                Win32.Controls.Edit.SetModify(TargetHandle, false);
+            }
+        }
+    }
+
+    /// <summary></summary>
+    private void OnGetModifyClick(object source, EventArgs e)
+    {
+        if(TargetHandle == IntPtr.Zero)
+            return;
+
+        var value = Win32.Controls.Edit.GetModify(TargetHandle);
+        modifyStateLabel.Text = $"Modify = {value}";
     }
 }

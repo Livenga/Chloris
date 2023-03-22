@@ -10,25 +10,10 @@ using System;
 public class ImpinjReader : AbsLLRPReader
 {
     /// <summary></summary>
-    public override bool Connect()
+    public override bool Open()
     {
-        if(IsConnected)
-            return true;
+        var ret = base.Open();
 
-        ENUM_ConnectionAttemptStatusType status;
-        var isSuccessed = LLRPClient.Open(
-                llrp_reader_name: "",
-                timeout: 3000,
-                status: out status);
-
-        if(! isSuccessed
-                || status != ENUM_ConnectionAttemptStatusType.Success)
-        {
-            return false;
-        }
-
-        // TODO 初期化等々
-
-        return true;
+        return ret;
     }
 }

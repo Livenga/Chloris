@@ -1,8 +1,10 @@
 namespace Chloris.Win32.Controls;
 
 using Chloris.Win32;
+using Chloris.Win32.Extends;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 
@@ -18,6 +20,15 @@ public static class Edit
     /// <summary></summary>
     private const uint WM_GETTEXTLENGTH = 0x000e;
 
+    /// <summary></summary>
+    private const uint EM_GETMODIFY = 0x00b8;
+    /// <summary></summary>
+    private const uint EM_SETMODIFY = 0x00b9;
+
+    /// <summary></summary>
+    private const uint EN_SETFOCUS = 0x0100;
+    /// <summary></summary>
+    private const uint EN_KILLFOCUS = 0x0200;
     /// <summary></summary>
     private const uint EN_CHANGE = 0x0300;
     /// <summary></summary>
@@ -70,6 +81,9 @@ public static class Edit
                 lParam: h)
             .ToInt32();
 
+#if DEBUG
+        Debug.WriteLine($"DEBUG | {nameof(GetText)} WM_GETTEXT {ret}");
+#endif
         if(ret == 0)
         {
             Marshal.FreeHGlobal(h);
@@ -98,7 +112,7 @@ public static class Edit
                 hWnd:   hWnd,
                 msg:    WM_SETTEXT,
                 wParam: IntPtr.Zero,
-                lParam: IntPtr.Zero)
+                lParam: h)
             .ToInt32();
 
         Marshal.FreeHGlobal(h);
@@ -106,6 +120,38 @@ public static class Edit
         return ret;
     }
 
+
+    /// <summary></summary>
+    public static int SetModify(
+            IntPtr hWnd,
+            bool   state)
+    {
+        var ret = User32.SendMessage(
+                hWnd:   hWnd,
+                msg:    EM_SETMODIFY,
+                wParam: state ? new IntPtr(1) : IntPtr.Zero,
+                lParam: IntPtr.Zero)
+            .ToInt32();
+
+        return ret;
+    }
+
+    /// <summary></summary>
+    public static bool GetModify(IntPtr hWnd)
+    {
+        var ret = User32.SendMessage(
+                hWnd:   hWnd,
+                msg:    EM_GETMODIFY,
+                wParam: IntPtr.Zero,
+                lParam: IntPtr.Zero)
+            .ToInt32();
+
+#if DEBUG
+        Debug.WriteLine($"DEBUG | {ret} = EM_GETMODIFY({hWnd.ToInt():X})");
+#endif
+
+        return (ret == 0);
+    }
 
     /// <summary>変更通知の送信</summary>
     public static int SendChangeNotify(
@@ -127,5 +173,27 @@ public static class Edit
                 hWndParent: hDest,
                 hWnd:       hWnd,
                 code:       (int)EN_UPDATE);
+    }
+
+    /// <summary>フォーカス通知送信</summary>
+    public static int SendSetFocusNotify(
+            IntPtr hDest,
+            IntPtr hWnd)
+    {
+        return Win32.Controls.Notify.Send(
+                hWndParent: hDest,
+                hWnd:       hWnd,
+                code:       (int)EN_SETFOCUS);
+    }
+
+    /// <summary>フォーカス取消通知送信</summary>
+    public static int SendKillFocusNotify(
+            IntPtr hDest,
+            IntPtr hWnd)
+    {
+        return Win32.Controls.Notify.Send(
+                hWndParent: hDest,
+                hWnd:       hWnd,
+                code:       (int)EN_KILLFOCUS);
     }
 }

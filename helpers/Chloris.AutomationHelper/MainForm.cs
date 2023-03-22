@@ -24,6 +24,7 @@ public partial class MainForm : Form
 {
     private WindowInfo? _targetWindowInfo = null;
     private CancellationTokenSource? _monitorCursorWindowTokenSource = null;
+    private IntPtr _targetHandle = IntPtr.Zero;
 
 
     /// <summary></summary>
@@ -250,6 +251,8 @@ public partial class MainForm : Form
                     // TextBox
                     textOperator.TargetHandle = ci.Handle;
                 }
+
+                _targetHandle = ci.Handle;
             }
             catch(Exception ex)
             {
@@ -259,6 +262,46 @@ public partial class MainForm : Form
 #endif
             }
         }
+    }
+
+    /// <summary></summary>
+    private void OnWindowSetFocusClick(object source, EventArgs e)
+    {
+        if(_targetHandle == IntPtr.Zero)
+        {
+            MessageBox.Show(
+                    caption: "",
+                    text: "",
+                    icon: MessageBoxIcon.Warning,
+                    buttons: MessageBoxButtons.OK);
+
+            return;
+        }
+
+        Win32.Controls.Window.SetFocus(_targetHandle);
+        User32.ShowCaret(_targetHandle);
+    }
+
+    /// <summary></summary>
+    private void OnWindowKillFocusClick(object source, EventArgs e)
+    {
+        if(_targetHandle == IntPtr.Zero)
+        {
+            MessageBox.Show(
+                    caption: "",
+                    text: "",
+                    icon: MessageBoxIcon.Warning,
+                    buttons: MessageBoxButtons.OK);
+
+            return;
+        }
+
+#if DEBUG
+        Debug.WriteLine($"DEBUG | Target Window Handle {_targetHandle.ToInt():X}");
+#endif
+
+        Win32.Controls.Window.KillFocus(_targetHandle);
+        User32.DestroyCaret();
     }
 #endregion private Events
     /// <summary></summary>

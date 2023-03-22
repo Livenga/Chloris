@@ -73,4 +73,7 @@ public abstract class AbsLLRPReader : IUhf
     {
         Close();
     }
+
+
+    /// <summary></summary>
 }

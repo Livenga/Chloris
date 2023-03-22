@@ -70,15 +70,17 @@
             this.targetGroup = new System.Windows.Forms.GroupBox();
             this.controlOperationTab = new System.Windows.Forms.TabControl();
             this.comboBoxPage = new System.Windows.Forms.TabPage();
-            this.selectorOperator = new Chloris.AutomationHelper.Controls.SelectorOpeartionControl();
             this.textPage = new System.Windows.Forms.TabPage();
-            this.textOperator = new Chloris.AutomationHelper.Controls.TextBoxOperationControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.targetTypeLabel = new System.Windows.Forms.Label();
+            this.windowSetFocusButton = new System.Windows.Forms.Button();
+            this.windowKillFocusButton = new System.Windows.Forms.Button();
+            this.selectorOperator = new Chloris.AutomationHelper.Controls.SelectorOpeartionControl();
+            this.textOperator = new Chloris.AutomationHelper.Controls.TextBoxOperationControl();
             this.mainMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.windowSearchGroup.SuspendLayout();
@@ -551,6 +553,8 @@
             this.targetGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.targetGroup.Controls.Add(this.windowKillFocusButton);
+            this.targetGroup.Controls.Add(this.windowSetFocusButton);
             this.targetGroup.Controls.Add(this.controlOperationTab);
             this.targetGroup.Controls.Add(this.tableLayoutPanel1);
             this.targetGroup.Controls.Add(this.targetTypeLabel);
@@ -568,11 +572,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.controlOperationTab.Controls.Add(this.comboBoxPage);
             this.controlOperationTab.Controls.Add(this.textPage);
-            this.controlOperationTab.Location = new System.Drawing.Point(12, 112);
+            this.controlOperationTab.Location = new System.Drawing.Point(12, 146);
             this.controlOperationTab.Name = "controlOperationTab";
             this.controlOperationTab.SelectedIndex = 0;
-            this.controlOperationTab.Size = new System.Drawing.Size(763, 482);
-            this.controlOperationTab.TabIndex = 2;
+            this.controlOperationTab.Size = new System.Drawing.Size(763, 448);
+            this.controlOperationTab.TabIndex = 4;
             // 
             // comboBoxPage
             // 
@@ -580,22 +584,10 @@
             this.comboBoxPage.Location = new System.Drawing.Point(4, 27);
             this.comboBoxPage.Name = "comboBoxPage";
             this.comboBoxPage.Padding = new System.Windows.Forms.Padding(3);
-            this.comboBoxPage.Size = new System.Drawing.Size(755, 451);
+            this.comboBoxPage.Size = new System.Drawing.Size(755, 417);
             this.comboBoxPage.TabIndex = 0;
             this.comboBoxPage.Text = "ComboBox";
             this.comboBoxPage.UseVisualStyleBackColor = true;
-            // 
-            // selectorOperator
-            // 
-            this.selectorOperator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectorOperator.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.selectorOperator.Location = new System.Drawing.Point(3, 3);
-            this.selectorOperator.Margin = new System.Windows.Forms.Padding(22, 364, 22, 364);
-            this.selectorOperator.Name = "selectorOperator";
-// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
-            this.selectorOperator.Size = new System.Drawing.Size(749, 445);
-            this.selectorOperator.TabIndex = 0;
-// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
             // 
             // textPage
             // 
@@ -603,21 +595,10 @@
             this.textPage.Location = new System.Drawing.Point(4, 22);
             this.textPage.Name = "textPage";
             this.textPage.Padding = new System.Windows.Forms.Padding(3);
-            this.textPage.Size = new System.Drawing.Size(755, 456);
+            this.textPage.Size = new System.Drawing.Size(755, 422);
             this.textPage.TabIndex = 1;
             this.textPage.Text = "TextBox";
             this.textPage.UseVisualStyleBackColor = true;
-            // 
-            // textOperator
-            // 
-            this.textOperator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textOperator.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textOperator.Location = new System.Drawing.Point(3, 3);
-            this.textOperator.Name = "textOperator";
-// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
-            this.textOperator.Size = new System.Drawing.Size(749, 450);
-            this.textOperator.TabIndex = 0;
-// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
             // 
             // tableLayoutPanel1
             // 
@@ -694,6 +675,49 @@
             this.targetTypeLabel.Size = new System.Drawing.Size(18, 18);
             this.targetTypeLabel.TabIndex = 0;
             this.targetTypeLabel.Text = "#";
+            // 
+            // windowSetFocusButton
+            // 
+            this.windowSetFocusButton.Location = new System.Drawing.Point(526, 112);
+            this.windowSetFocusButton.Name = "windowSetFocusButton";
+            this.windowSetFocusButton.Size = new System.Drawing.Size(120, 28);
+            this.windowSetFocusButton.TabIndex = 2;
+            this.windowSetFocusButton.Text = "WM_SETFOCUS";
+            this.windowSetFocusButton.UseVisualStyleBackColor = true;
+            this.windowSetFocusButton.Click += new System.EventHandler(this.OnWindowSetFocusClick);
+            // 
+            // windowKillFocusButton
+            // 
+            this.windowKillFocusButton.Location = new System.Drawing.Point(652, 112);
+            this.windowKillFocusButton.Name = "windowKillFocusButton";
+            this.windowKillFocusButton.Size = new System.Drawing.Size(120, 28);
+            this.windowKillFocusButton.TabIndex = 3;
+            this.windowKillFocusButton.Text = "WM_KILLFOCUS";
+            this.windowKillFocusButton.UseVisualStyleBackColor = true;
+            this.windowKillFocusButton.Click += new System.EventHandler(this.OnWindowKillFocusClick);
+            // 
+            // selectorOperator
+            // 
+            this.selectorOperator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selectorOperator.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.selectorOperator.Location = new System.Drawing.Point(3, 3);
+            this.selectorOperator.Margin = new System.Windows.Forms.Padding(22, 364, 22, 364);
+            this.selectorOperator.Name = "selectorOperator";
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
+            this.selectorOperator.Size = new System.Drawing.Size(749, 411);
+            this.selectorOperator.TabIndex = 0;
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
+            // 
+            // textOperator
+            // 
+            this.textOperator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textOperator.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textOperator.Location = new System.Drawing.Point(3, 3);
+            this.textOperator.Name = "textOperator";
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
+            this.textOperator.Size = new System.Drawing.Size(749, 416);
+            this.textOperator.TabIndex = 0;
+// TODO: 例外 '無効な Primitive 型 System.IntPtr です。CodeObjectCreateExpression を使ってください。' によって '' のコード生成が失敗しました。
             // 
             // MainForm
             // 
@@ -790,6 +814,8 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TabPage textPage;
         private Controls.TextBoxOperationControl textOperator;
+        private System.Windows.Forms.Button windowKillFocusButton;
+        private System.Windows.Forms.Button windowSetFocusButton;
     }
 }
 

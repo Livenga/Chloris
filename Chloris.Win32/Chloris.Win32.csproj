@@ -46,9 +46,11 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\Edit.cs" />
     <Compile Include="Controls\Notify.cs" />
     <Compile Include="Controls\Selector.cs" />
+    <Compile Include="Controls\Window.cs" />
     <Compile Include="Extends\ExtdAutomationElement.cs" />
     <Compile Include="Extends\ExtdIntPtr.cs" />
     <Compile Include="Kernel32.cs" />

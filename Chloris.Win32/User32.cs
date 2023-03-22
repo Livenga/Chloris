@@ -64,6 +64,13 @@ public static class User32
     [DllImport(L, EntryPoint = nameof(GetWindowModuleFileNameW), SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = false)]
     public static extern uint GetWindowModuleFileNameW([In]IntPtr hWnd, [Out]StringBuilder pszFileName, [In]uint cchFileNameMax);
 
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(ShowCaret), SetLastError = true, CharSet = CharSet.Auto, ExactSpelling = false)]
+    public static extern bool ShowCaret(IntPtr hWnd);
+
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(DestroyCaret), SetLastError = true, CharSet = CharSet.Auto, ExactSpelling = false)]
+    public static extern bool DestroyCaret();
 
     /// <summary></summary>
     [DllImport(L, EntryPoint = nameof(IsWindow), SetLastError = true, CharSet = CharSet.Auto)]

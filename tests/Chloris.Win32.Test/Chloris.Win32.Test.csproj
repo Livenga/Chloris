@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Chloris.Extends\Chloris.Extends.csproj">
+      <Project>{3162a5a1-31d3-4f66-8282-c3ce80863005}</Project>
+      <Name>Chloris.Extends</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Chloris.Win32\Chloris.Win32.csproj">
       <Project>{5aa5fd5b-2248-4511-b945-7604edfba451}</Project>
       <Name>Chloris.Win32</Name>
