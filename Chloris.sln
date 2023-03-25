@@ -15,7 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helpers", "helpers", "{C71C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.AutomationHelper", "helpers\Chloris.AutomationHelper\Chloris.AutomationHelper.csproj", "{325E5103-D01A-478D-9392-9EBD10BDF764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Extends", "Chloris.Extends\Chloris.Extends.csproj", "{3162A5A1-31D3-4F66-8282-C3CE80863005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chloris.Extends", "Chloris.Extends\Chloris.Extends.csproj", "{3162A5A1-31D3-4F66-8282-C3CE80863005}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chrome", "Chrome", "{F1F7913F-6349-4D65-85E0-B0088EFEC99A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Chrome", "Chrome\Chloris.Chrome\Chloris.Chrome.csproj", "{888406D0-D732-48BE-8E56-55518D6A8041}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Chrome.Test", "tests\Chloris.Chrome.Test\Chloris.Chrome.Test.csproj", "{47D77887-C8D3-4F7D-8FEC-0DCD7530D438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Chrome.Decryptor", "Chrome\Chloris.Chrome.Decryptor\Chloris.Chrome.Decryptor.csproj", "{C01D924C-5614-4B4F-95E5-69EF17B452CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +51,18 @@ Global
 		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3162A5A1-31D3-4F66-8282-C3CE80863005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{888406D0-D732-48BE-8E56-55518D6A8041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{888406D0-D732-48BE-8E56-55518D6A8041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{888406D0-D732-48BE-8E56-55518D6A8041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{888406D0-D732-48BE-8E56-55518D6A8041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D77887-C8D3-4F7D-8FEC-0DCD7530D438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D77887-C8D3-4F7D-8FEC-0DCD7530D438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D77887-C8D3-4F7D-8FEC-0DCD7530D438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D77887-C8D3-4F7D-8FEC-0DCD7530D438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01D924C-5614-4B4F-95E5-69EF17B452CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01D924C-5614-4B4F-95E5-69EF17B452CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01D924C-5614-4B4F-95E5-69EF17B452CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01D924C-5614-4B4F-95E5-69EF17B452CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +70,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{66FC9D35-2711-432F-A08C-F576F77C23FA} = {A457DFC6-36DF-48C7-B490-47CD8D235EEC}
 		{325E5103-D01A-478D-9392-9EBD10BDF764} = {C71C9382-5FEB-4D05-B5C8-A450D8FA34AE}
+		{888406D0-D732-48BE-8E56-55518D6A8041} = {F1F7913F-6349-4D65-85E0-B0088EFEC99A}
+		{47D77887-C8D3-4F7D-8FEC-0DCD7530D438} = {A457DFC6-36DF-48C7-B490-47CD8D235EEC}
+		{C01D924C-5614-4B4F-95E5-69EF17B452CC} = {F1F7913F-6349-4D65-85E0-B0088EFEC99A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8703FE94-B1D2-4032-B40D-A23D966AC28B}
