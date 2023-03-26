@@ -38,6 +38,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileSaveCsvMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.loginList = new System.Windows.Forms.ListView();
             this.loginIdHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -59,9 +62,6 @@
             this.loginUsernameText = new System.Windows.Forms.TextBox();
             this.loginPasswordLabel = new System.Windows.Forms.Label();
             this.loginPasswordText = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.fileExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileSaveCsvMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inputFileGroup.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.decryptGroup.SuspendLayout();
@@ -164,6 +164,26 @@
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(67, 20);
             this.fileMenu.Text = "ファイル(&F)";
+            // 
+            // fileSaveCsvMenuItem
+            // 
+            this.fileSaveCsvMenuItem.Enabled = false;
+            this.fileSaveCsvMenuItem.Name = "fileSaveCsvMenuItem";
+            this.fileSaveCsvMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.fileSaveCsvMenuItem.Text = "複合化データをCSVファイルで保存";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(230, 6);
+            // 
+            // fileExitMenuItem
+            // 
+            this.fileExitMenuItem.Name = "fileExitMenuItem";
+            this.fileExitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.fileExitMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.fileExitMenuItem.Text = "終了(&X)";
+            this.fileExitMenuItem.Click += new System.EventHandler(this.OnFileExitMenuClick);
             // 
             // statusStrip
             // 
@@ -388,26 +408,6 @@
             this.loginPasswordText.Size = new System.Drawing.Size(345, 25);
             this.loginPasswordText.TabIndex = 5;
             this.loginPasswordText.Text = "#";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(230, 6);
-            // 
-            // fileExitMenuItem
-            // 
-            this.fileExitMenuItem.Name = "fileExitMenuItem";
-            this.fileExitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.fileExitMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.fileExitMenuItem.Text = "終了(&X)";
-            this.fileExitMenuItem.Click += new System.EventHandler(this.OnFileExitMenuClick);
-            // 
-            // fileSaveCsvMenuItem
-            // 
-            this.fileSaveCsvMenuItem.Enabled = false;
-            this.fileSaveCsvMenuItem.Name = "fileSaveCsvMenuItem";
-            this.fileSaveCsvMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.fileSaveCsvMenuItem.Text = "複合化データをCSVファイルで保存";
             // 
             // MainForm
             // 
