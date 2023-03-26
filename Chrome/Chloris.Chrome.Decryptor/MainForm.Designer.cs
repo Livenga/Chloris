@@ -62,6 +62,8 @@
             this.loginUsernameText = new System.Windows.Forms.TextBox();
             this.loginPasswordLabel = new System.Windows.Forms.Label();
             this.loginPasswordText = new System.Windows.Forms.TextBox();
+            this.fileSearchLoginDataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chromeNoticeLabel = new System.Windows.Forms.Label();
             this.inputFileGroup.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.decryptGroup.SuspendLayout();
@@ -159,6 +161,7 @@
             // 
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileSaveCsvMenuItem,
+            this.fileSearchLoginDataMenuItem,
             this.toolStripSeparator1,
             this.fileExitMenuItem});
             this.fileMenu.Name = "fileMenu";
@@ -169,19 +172,22 @@
             // 
             this.fileSaveCsvMenuItem.Enabled = false;
             this.fileSaveCsvMenuItem.Name = "fileSaveCsvMenuItem";
-            this.fileSaveCsvMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.fileSaveCsvMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.fileSaveCsvMenuItem.Size = new System.Drawing.Size(304, 22);
             this.fileSaveCsvMenuItem.Text = "複合化データをCSVファイルで保存";
+            this.fileSaveCsvMenuItem.Click += new System.EventHandler(this.OnFileSaveToCsvMenuClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(301, 6);
             // 
             // fileExitMenuItem
             // 
             this.fileExitMenuItem.Name = "fileExitMenuItem";
             this.fileExitMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.fileExitMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.fileExitMenuItem.Size = new System.Drawing.Size(304, 22);
             this.fileExitMenuItem.Text = "終了(&X)";
             this.fileExitMenuItem.Click += new System.EventHandler(this.OnFileExitMenuClick);
             // 
@@ -190,7 +196,7 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 674);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1025, 22);
-            this.statusStrip.TabIndex = 9;
+            this.statusStrip.TabIndex = 10;
             this.statusStrip.Text = "statusStrip1";
             // 
             // loginList
@@ -208,10 +214,10 @@
             this.loginList.FullRowSelect = true;
             this.loginList.GridLines = true;
             this.loginList.HideSelection = false;
-            this.loginList.Location = new System.Drawing.Point(12, 259);
+            this.loginList.Location = new System.Drawing.Point(12, 296);
             this.loginList.Name = "loginList";
-            this.loginList.Size = new System.Drawing.Size(1001, 275);
-            this.loginList.TabIndex = 7;
+            this.loginList.Size = new System.Drawing.Size(1001, 238);
+            this.loginList.TabIndex = 8;
             this.loginList.UseCompatibleStateImageBehavior = false;
             this.loginList.View = System.Windows.Forms.View.Details;
             this.loginList.VirtualMode = true;
@@ -250,19 +256,19 @@
             // loginsLabel
             // 
             this.loginsLabel.AutoSize = true;
-            this.loginsLabel.Location = new System.Drawing.Point(9, 238);
+            this.loginsLabel.Location = new System.Drawing.Point(9, 275);
             this.loginsLabel.Name = "loginsLabel";
             this.loginsLabel.Size = new System.Drawing.Size(45, 18);
-            this.loginsLabel.TabIndex = 6;
+            this.loginsLabel.TabIndex = 7;
             this.loginsLabel.Text = "&Logins";
             // 
             // encryptedKeyLabel
             // 
             this.encryptedKeyLabel.AutoSize = true;
-            this.encryptedKeyLabel.Location = new System.Drawing.Point(9, 137);
+            this.encryptedKeyLabel.Location = new System.Drawing.Point(9, 164);
             this.encryptedKeyLabel.Name = "encryptedKeyLabel";
             this.encryptedKeyLabel.Size = new System.Drawing.Size(68, 18);
-            this.encryptedKeyLabel.TabIndex = 4;
+            this.encryptedKeyLabel.TabIndex = 5;
             this.encryptedKeyLabel.Text = "暗号化キー";
             // 
             // encryptedKeyText
@@ -272,12 +278,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.encryptedKeyText.BackColor = System.Drawing.SystemColors.Control;
             this.encryptedKeyText.ForeColor = System.Drawing.Color.Blue;
-            this.encryptedKeyText.Location = new System.Drawing.Point(12, 158);
+            this.encryptedKeyText.Location = new System.Drawing.Point(12, 185);
             this.encryptedKeyText.Multiline = true;
             this.encryptedKeyText.Name = "encryptedKeyText";
             this.encryptedKeyText.ReadOnly = true;
             this.encryptedKeyText.Size = new System.Drawing.Size(1001, 77);
-            this.encryptedKeyText.TabIndex = 5;
+            this.encryptedKeyText.TabIndex = 6;
             // 
             // protectionScopeLabel
             // 
@@ -285,7 +291,7 @@
             this.protectionScopeLabel.Location = new System.Drawing.Point(579, 31);
             this.protectionScopeLabel.Name = "protectionScopeLabel";
             this.protectionScopeLabel.Size = new System.Drawing.Size(130, 18);
-            this.protectionScopeLabel.TabIndex = 2;
+            this.protectionScopeLabel.TabIndex = 3;
             this.protectionScopeLabel.Text = "DataProtectionScope";
             // 
             // protectionScopeSelector
@@ -295,7 +301,7 @@
             this.protectionScopeSelector.Location = new System.Drawing.Point(582, 52);
             this.protectionScopeSelector.Name = "protectionScopeSelector";
             this.protectionScopeSelector.Size = new System.Drawing.Size(259, 26);
-            this.protectionScopeSelector.TabIndex = 3;
+            this.protectionScopeSelector.TabIndex = 4;
             // 
             // decryptGroup
             // 
@@ -304,7 +310,7 @@
             this.decryptGroup.Location = new System.Drawing.Point(12, 540);
             this.decryptGroup.Name = "decryptGroup";
             this.decryptGroup.Size = new System.Drawing.Size(483, 131);
-            this.decryptGroup.TabIndex = 8;
+            this.decryptGroup.TabIndex = 9;
             this.decryptGroup.TabStop = false;
             this.decryptGroup.Text = "複合化";
             // 
@@ -409,11 +415,31 @@
             this.loginPasswordText.TabIndex = 5;
             this.loginPasswordText.Text = "#";
             // 
+            // fileSearchLoginDataMenuItem
+            // 
+            this.fileSearchLoginDataMenuItem.Name = "fileSearchLoginDataMenuItem";
+            this.fileSearchLoginDataMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.fileSearchLoginDataMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.fileSearchLoginDataMenuItem.Text = "ログインデータの自動検出";
+            this.fileSearchLoginDataMenuItem.Click += new System.EventHandler(this.OnFileSearchLoginDataMenuClick);
+            // 
+            // chromeNoticeLabel
+            // 
+            this.chromeNoticeLabel.AutoSize = true;
+            this.chromeNoticeLabel.ForeColor = System.Drawing.Color.Coral;
+            this.chromeNoticeLabel.Location = new System.Drawing.Point(12, 121);
+            this.chromeNoticeLabel.Name = "chromeNoticeLabel";
+            this.chromeNoticeLabel.Size = new System.Drawing.Size(562, 36);
+            this.chromeNoticeLabel.TabIndex = 2;
+            this.chromeNoticeLabel.Text = "アプリケーションデータディレクトリに存在するデータを対象に複合化を実行する際,\r\nGoogle Chrome が起動中の場合データベースにロックが掛かっているため" +
+    "予期せぬ動作を起こします.";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 696);
+            this.Controls.Add(this.chromeNoticeLabel);
             this.Controls.Add(this.decryptGroup);
             this.Controls.Add(this.protectionScopeSelector);
             this.Controls.Add(this.protectionScopeLabel);
@@ -478,6 +504,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem fileExitMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileSaveCsvMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileSearchLoginDataMenuItem;
+        private System.Windows.Forms.Label chromeNoticeLabel;
     }
 }
 

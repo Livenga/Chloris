@@ -52,6 +52,59 @@ public partial class MainForm : Form
     }
 
     /// <summary></summary>
+    private void OnFileSaveToCsvMenuClick(object source, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary></summary>
+    private async void OnFileSearchLoginDataMenuClick(object source, EventArgs e)
+    {
+        var chromeAppDirectory = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Google",
+                "Chrome");
+
+        var loginDataPaths = Directory.GetFiles(
+                path: chromeAppDirectory,
+                searchPattern: "Login Data",
+                searchOption: SearchOption.AllDirectories);
+
+        var localStatePaths = Directory.GetFiles(
+                path: chromeAppDirectory,
+                searchPattern: "Local State",
+                searchOption: SearchOption.AllDirectories);
+
+        if(loginDataPaths.Length == 1 && localStatePaths.Length == 1)
+        {
+            databasePathText.Text = loginDataPaths[0];
+            statePathText.Text = localStatePaths[0];
+
+            _dataLoader = await GetDataLoaderAsync(
+                    dataSource:     loginDataPaths[0],
+                    localStatePath: localStatePaths[0]);
+        }
+        else
+        {
+            MessageBox.Show(
+                    caption: "警告",
+                    text: "複数の \"Login Data\", \"Local State\" が見つかりました.(選択できるように修正します.多分)",
+                    icon: MessageBoxIcon.Warning,
+                    buttons: MessageBoxButtons.OK);
+        }
+#if DEBUG
+        foreach(var loginDataPath in loginDataPaths)
+        {
+            Debug.WriteLine(loginDataPath);
+        }
+        foreach(var localStatePath in localStatePaths)
+        {
+            Debug.WriteLine(localStatePath);
+        }
+#endif
+    }
+
+    /// <summary></summary>
     private void OnFileExitMenuClick(object source, EventArgs e)
     {
         Close();
@@ -200,6 +253,10 @@ public partial class MainForm : Form
         }
         catch(Exception ex)
         {
+#if DEBUG
+            Debug.WriteLine($"ERROR | {ex.GetType().FullName} {ex.Message}");
+            Debug.WriteLine(ex.StackTrace);
+#endif
             _loginListViewItems = null;
         }
         finally

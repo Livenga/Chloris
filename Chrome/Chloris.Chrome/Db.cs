@@ -31,7 +31,7 @@ internal class Db
 
         sb.DataSource = _dataSource;
         sb.Version = 3;
-        sb.Add("Mode", "ReadWriteCreate");
+        sb.Add("Mode", "Read");
         sb.Add("Cache", "Default");
 
         conn.ConnectionString = sb.ToString();
