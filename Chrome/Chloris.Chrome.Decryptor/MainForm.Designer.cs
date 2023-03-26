@@ -39,6 +39,7 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.fileSaveCsvMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileSearchLoginDataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.fileExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -62,7 +63,6 @@
             this.loginUsernameText = new System.Windows.Forms.TextBox();
             this.loginPasswordLabel = new System.Windows.Forms.Label();
             this.loginPasswordText = new System.Windows.Forms.TextBox();
-            this.fileSearchLoginDataMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chromeNoticeLabel = new System.Windows.Forms.Label();
             this.inputFileGroup.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -178,6 +178,14 @@
             this.fileSaveCsvMenuItem.Text = "複合化データをCSVファイルで保存";
             this.fileSaveCsvMenuItem.Click += new System.EventHandler(this.OnFileSaveToCsvMenuClick);
             // 
+            // fileSearchLoginDataMenuItem
+            // 
+            this.fileSearchLoginDataMenuItem.Name = "fileSearchLoginDataMenuItem";
+            this.fileSearchLoginDataMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.fileSearchLoginDataMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.fileSearchLoginDataMenuItem.Text = "ログインデータの自動検出";
+            this.fileSearchLoginDataMenuItem.Click += new System.EventHandler(this.OnFileSearchLoginDataMenuClick);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -282,6 +290,7 @@
             this.encryptedKeyText.Multiline = true;
             this.encryptedKeyText.Name = "encryptedKeyText";
             this.encryptedKeyText.ReadOnly = true;
+            this.encryptedKeyText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.encryptedKeyText.Size = new System.Drawing.Size(1001, 77);
             this.encryptedKeyText.TabIndex = 6;
             // 
@@ -414,14 +423,6 @@
             this.loginPasswordText.Size = new System.Drawing.Size(345, 25);
             this.loginPasswordText.TabIndex = 5;
             this.loginPasswordText.Text = "#";
-            // 
-            // fileSearchLoginDataMenuItem
-            // 
-            this.fileSearchLoginDataMenuItem.Name = "fileSearchLoginDataMenuItem";
-            this.fileSearchLoginDataMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-            this.fileSearchLoginDataMenuItem.Size = new System.Drawing.Size(304, 22);
-            this.fileSearchLoginDataMenuItem.Text = "ログインデータの自動検出";
-            this.fileSearchLoginDataMenuItem.Click += new System.EventHandler(this.OnFileSearchLoginDataMenuClick);
             // 
             // chromeNoticeLabel
             // 
