@@ -17,4 +17,13 @@ public interface IUhf : IDisposable
 
     /// <summary></summary>
     bool Close();
+
+    /// <summary></summary>
+    void Start();
+
+    /// <summary></summary>
+    void Stop();
+
+    event UhfReceiveTagEventHandler? ReceiveTag;
+
 }

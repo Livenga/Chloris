@@ -117,7 +117,7 @@ public class ImpinjReader : AbsLLRPReader
         pROSpec.SpecParameter = new ();
         var pAI = new PARAM_AISpec();
         pROSpec.SpecParameter.Add(pAI);
-        // TODO
+        // TODO 使用するアンテナと個々の設定
         pAI.AntennaIDs.Add(0);
 
         pAI.AISpecStopTrigger = new ();

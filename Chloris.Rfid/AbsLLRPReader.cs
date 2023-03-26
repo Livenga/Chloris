@@ -1,6 +1,8 @@
 namespace Chloris.Rfid;
 
 using Org.LLRP.LTK.LLRPV1;
+using Org.LLRP.LTK.LLRPV1.DataType;
+using Org.LLRP.LTK.LLRPV1.Impinj;
 using System;
 using System.Linq;
 using System.Diagnostics;
@@ -20,6 +22,10 @@ public abstract class AbsLLRPReader : IUhf
 
 
     private LLRPClient? _client = null;
+    private bool _isRunning = false;
+
+    /// <summary></summary>
+    public event UhfReceiveTagEventHandler? ReceiveTag = null;
 
 
     /// <summary></summary>
@@ -74,6 +80,51 @@ public abstract class AbsLLRPReader : IUhf
         return true;
     }
 
+
+    private const uint _roSpecId = 14150;
+
+    /// <summary></summary>
+    public virtual void Start()
+    {
+        if(_isRunning)
+            return;
+
+        try
+        {
+            AddROSpec(_roSpecId);
+
+            EnableROSpec(_roSpecId);
+
+            StartROSpec(_roSpecId);
+            _isRunning = true;
+        }
+        catch
+        {
+            _isRunning = false;
+            throw;
+        }
+    }
+
+    /// <summary></summary>
+    public virtual void Stop()
+    {
+        if(! _isRunning)
+            return;
+
+        try
+        {
+            StopROSpec(_roSpecId);
+            DisableROSpec(_roSpecId);
+            DeleteROSpec(_roSpecId);
+        }
+        catch
+        {
+        }
+        finally
+        {
+            _isRunning = false;
+        }
+    }
 
     /// <summary></summary>
     public virtual bool Close()
@@ -177,6 +228,11 @@ public abstract class AbsLLRPReader : IUhf
         LLRPHelper.Check(mErr, resp);
     }
 
+    /// <summary></summary>
+    protected virtual void OnReceiveTag(Chloris.Rfid.Data.Tag tag)
+    {
+        ReceiveTag?.Invoke(this, tag);
+    }
 
     /// <summary></summary>
     private void OnRoAccessReportReceived(MSG_RO_ACCESS_REPORT mReport)
@@ -185,9 +241,70 @@ public abstract class AbsLLRPReader : IUhf
             || ! mReport.TagReportData.Any())
             return;
 
-        // TODO
+        var now = DateTime.Now;
+
         foreach(var report in mReport.TagReportData)
         {
+            ushort? pcBits = null, crc = null;
+
+            for(var i = 0; i < report.AirProtocolTagData.Length; ++i)
+            {
+                switch(report.AirProtocolTagData[i])
+                {
+                    case PARAM_C1G2_CRC pCrc:
+                        crc = pCrc.CRC;
+                        break;
+                    case PARAM_C1G2_PC pPc:
+                        pcBits = pPc.PC_Bits;
+                        break;
+                }
+            }
+
+            var epc = report.EPCParameter[0] switch
+            {
+                PARAM_EPC_96  pEpc => pEpc.EPC.ToHexString(),
+                PARAM_EPCData pEpc => pEpc.EPC.ToHexString(),
+                _ => throw new NotSupportedException(),
+            };
+
+            string? tid = null;
+            double? phaseAngle = null, rssi = null;
+            for(var i = 0; i < report.Custom.Length; ++i)
+            {
+                switch(report.Custom[i])
+                {
+                    case PARAM_ImpinjRFPhaseAngle pAngle:
+                        phaseAngle = (pAngle.PhaseAngle / 4096d) * 360d;
+                        break;
+
+                    case PARAM_ImpinjPeakRSSI pRssi:
+                        rssi = pRssi.RSSI / 100d;
+                        break;
+
+                    case PARAM_ImpinjSerializedTID pTid:
+                        tid = string.Join(string.Empty, pTid.TID.ToHexString().Split(' '));
+                        break;
+                }
+            }
+            if(rssi == null)
+                rssi = (double)report.PeakRSSI.PeakRSSI;
+
+            var tag = new Rfid.Data.Tag(
+                    crc: crc,
+                    pcBits: pcBits,
+                    tid: tid,
+                    epc: epc,
+                    antennaId: report.AntennaID.AntennaID,
+                    rssi: rssi,
+                    phaseAngle: phaseAngle,
+                    roSpecId: report.ROSpecID.ROSpecID,
+                    accessSpecId: report.AccessSpecID?.AccessSpecID,
+                    publishedAt: now);
+
+            OnReceiveTag(tag);
+#if DEBUG
+            Debug.WriteLine($"DEBUG | {epc}");
+#endif
         }
     }
 }
