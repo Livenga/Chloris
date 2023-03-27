@@ -86,11 +86,30 @@ public partial class MainForm : Form
         }
         else
         {
+            /*
             MessageBox.Show(
                     caption: "警告",
                     text: "複数の \"Login Data\", \"Local State\" が見つかりました.(選択できるように修正します.多分)",
                     icon: MessageBoxIcon.Warning,
                     buttons: MessageBoxButtons.OK);
+                    */
+
+            using(var dlg = new Forms.LocalDataSelectorForm())
+            {
+                dlg.LoginDataPaths  = loginDataPaths;
+                dlg.LocalStatePaths = localStatePaths;
+
+                if(DialogResult.OK == dlg.ShowDialog(this))
+                {
+                    databasePathText.Text = dlg.SelectedLoginDataPath ?? string.Empty;
+                    statePathText.Text    = dlg.SelectedLocalStatePath ?? string.Empty;
+
+                    // TODO 安全性の検証
+                    _dataLoader = await GetDataLoaderAsync(
+                            dataSource:     databasePathText.Text,
+                            localStatePath: statePathText.Text);
+                }
+            }
         }
 #if DEBUG
         foreach(var loginDataPath in loginDataPaths)

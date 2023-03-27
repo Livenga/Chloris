@@ -8,7 +8,7 @@ using System.Windows.Automation;
 public static class ExtdAutomationElement
 {
     /// <summary></summary>
-    public static AutomationElement? FindByIds(
+    public static AutomationElement? FindByAutomationIds(
             this AutomationElement ae,
             params string[] ids)
     {

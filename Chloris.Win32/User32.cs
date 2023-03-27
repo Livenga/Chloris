@@ -89,6 +89,10 @@ public static class User32
     public static extern bool IsWindowVisible(IntPtr hWnd);
 
     /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(ShowWindow), SetLastError = true, CharSet = CharSet.Auto)]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    /// <summary></summary>
     [DllImport(L, EntryPoint = nameof(GetWindowTextLengthA), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Ansi)]
     public static extern int GetWindowTextLengthA(IntPtr hWnd);
 

@@ -25,7 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Chrome.Test", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Chrome.Decryptor", "Chrome\Chloris.Chrome.Decryptor\Chloris.Chrome.Decryptor.csproj", "{C01D924C-5614-4B4F-95E5-69EF17B452CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Rfid.Test", "tests\Chloris.Rfid.Test\Chloris.Rfid.Test.csproj", "{D7DF69DE-0625-4BE6-91AC-BB50806FBF04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chloris.Rfid.Test", "tests\Chloris.Rfid.Test\Chloris.Rfid.Test.csproj", "{D7DF69DE-0625-4BE6-91AC-BB50806FBF04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Chrome.CCsv", "Chrome\Chloris.Chrome.CCsv\Chloris.Chrome.CCsv.csproj", "{B96D4B78-141D-4A60-B4EC-CD77B720630C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{D7DF69DE-0625-4BE6-91AC-BB50806FBF04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7DF69DE-0625-4BE6-91AC-BB50806FBF04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7DF69DE-0625-4BE6-91AC-BB50806FBF04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96D4B78-141D-4A60-B4EC-CD77B720630C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96D4B78-141D-4A60-B4EC-CD77B720630C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96D4B78-141D-4A60-B4EC-CD77B720630C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96D4B78-141D-4A60-B4EC-CD77B720630C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{47D77887-C8D3-4F7D-8FEC-0DCD7530D438} = {A457DFC6-36DF-48C7-B490-47CD8D235EEC}
 		{C01D924C-5614-4B4F-95E5-69EF17B452CC} = {F1F7913F-6349-4D65-85E0-B0088EFEC99A}
 		{D7DF69DE-0625-4BE6-91AC-BB50806FBF04} = {A457DFC6-36DF-48C7-B490-47CD8D235EEC}
+		{B96D4B78-141D-4A60-B4EC-CD77B720630C} = {F1F7913F-6349-4D65-85E0-B0088EFEC99A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8703FE94-B1D2-4032-B40D-A23D966AC28B}

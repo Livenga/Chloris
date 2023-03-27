@@ -456,7 +456,7 @@
             this.MainMenuStrip = this.mainMenuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
-            this.Text = "Chloris.Chrome.Decryptor";
+            this.Text = "Google Chrome 複合化";
             this.Load += new System.EventHandler(this.OnLoad);
             this.inputFileGroup.ResumeLayout(false);
             this.inputFileGroup.PerformLayout();
