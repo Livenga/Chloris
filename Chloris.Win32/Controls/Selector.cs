@@ -36,8 +36,10 @@ public static class Selector
         return (ret != CB_ERR) ? ret : throw new Win32Exception(Kernel32.GetLastError());
     }
 
-    /// <summary></summary>
-    public static int SetCurrentSelection(IntPtr hWnd, int nIndex)
+    /// <summary>選択要素の変更</summary>
+    public static int SetCurrentSelection(
+            IntPtr hWnd,
+            int    nIndex)
     {
         var ret = User32.SendMessage(
                 hWnd,
@@ -47,6 +49,19 @@ public static class Selector
             .ToInt32();
 
         return (ret != CB_ERR) ? ret : throw new Win32Exception(Kernel32.GetLastError());
+    }
+
+    /// <summary></summary>
+    public static int SetItem(
+            IntPtr hWnd,
+            string value)
+    {
+        var items = GetItems(hWnd);
+        var idx = Array.IndexOf(items, value);
+        if(idx >= 0)
+            SetCurrentSelection(hWnd, idx);
+
+        return idx;
     }
 
     /// <summary></summary>
