@@ -5,6 +5,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.IO;
 using System.Text.Json;
@@ -13,24 +14,82 @@ using System.Threading.Tasks;
 
 
 /// <summary></summary>
-public class DataLoader
+public sealed class DataLoader : IDisposable
 {
+    /// <summary></summary>
+    public string LocalStatePath => _localStatePath;
+
+    /// <summary></summary>
+    public string DataSource => _dataSource;
+
+
     private readonly Db _db;
     private readonly string _localStatePath;
+    private readonly string _dataSource;
+    private readonly string _shadowLocalStatePath;
+    private readonly string _shadowDataSource;
+
 
     /// <summary></summary>
     public DataLoader(
             string dataSource,
             string localStatePath)
     {
-        _db = new Db(dataSource);
+        _shadowLocalStatePath = CreateShadowFile(localStatePath, "ls");
+        _shadowDataSource     = CreateShadowFile(dataSource, "ds");
+
+        _dataSource     = dataSource;
         _localStatePath = localStatePath;
+
+        _db = new Db(_shadowDataSource);
     }
+
+    /// <summary></summary>
+    private string CreateShadowFile(
+            string src,
+            string symbol)
+    {
+        var dst = $"{symbol}_{Guid.NewGuid().ToString()}";
+#if DEBUG
+        Debug.WriteLine($"DEBUG | {nameof(CreateShadowFile)} Copy {src} => {dst}");
+#endif
+
+        File.Copy(
+                sourceFileName: src,
+                destFileName:   dst,
+                overwrite:      true);
+
+        return dst;
+    }
+
+    /// <summary></summary>
+    private bool TryDeleteFile(string path)
+    {
+        if(! File.Exists(path))
+            return false;
+
+#if DEBUG
+        Debug.WriteLine($"DEBUG | {nameof(TryDeleteFile)} {path}");
+#endif
+        try
+        {
+            File.Delete(path: path);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
 
     /// <summary></summary>
     public async Task<Data.OsCrypt> GetOsCryptAsync(CancellationToken cancellationToken = default(CancellationToken))
     {
-        using var stream = File.Open(_localStatePath, FileMode.Open, FileAccess.Read);
+        using var stream = File.Open(
+                _shadowLocalStatePath,
+                FileMode.Open,
+                FileAccess.Read);
 
         var jdoc = await JsonDocument.ParseAsync(
                 utf8Json: stream,
@@ -106,6 +165,14 @@ public class DataLoader
     }
 
     /// <summary></summary>
+    public void Dispose()
+    {
+        // 複製ファイルの削除
+        TryDeleteFile(path: _shadowLocalStatePath);
+        TryDeleteFile(path: _shadowDataSource);
+    }
+
+    /// <summary></summary>
     private async Task<string[]> GetColumnNamesAsync(
             IDbConnection connection,
             IDbTransaction transaction,
@@ -141,5 +208,4 @@ public class DataLoader
                         reader.GetFieldType(i: idx).FullName))
             .ToArray();
     }
-
 }

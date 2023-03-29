@@ -2,11 +2,8 @@
 
 using Chloris.Chrome;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,9 +17,38 @@ using System.Windows.Forms;
 /// <summary></summary>
 public partial class MainForm : Form
 {
+    /// <summary></summary>
+    public bool IsDbOpened
+    {
+        set
+        {
+            _isDbOpened = value;
+
+            fileSearchLoginDataMenuItem.Enabled = ! value;
+            inputFileGroup.Enabled              = ! value;
+            fileSaveCsvMenuItem.Enabled         = value;
+
+            dbConnectButton.Text = value ? "切断(&D)" : "接続(&C)";
+
+            if(! value)
+            {
+                loginUrlText.Text      = string.Empty;
+                loginUsernameText.Text = string.Empty;
+                loginPasswordText.Text = string.Empty;
+
+                encryptedKeyText.Text = string.Empty;
+                _loginListViewItems = null;
+                loginList.VirtualListSize = 0;
+                loginList.Refresh();
+            }
+        }
+        get => _isDbOpened;
+    }
+
     private DataLoader? _dataLoader = null;
     private ListViewItem[]? _loginListViewItems = null;
     private Chloris.Chrome.Data.OsCrypt? _osCrypt = null;
+    private bool _isDbOpened = false;
 
 
     /// <summary></summary>
@@ -44,21 +70,120 @@ public partial class MainForm : Form
                 .Cast<object>()
                 .ToArray());
         protectionScopeSelector.SelectedIndex = 0;
+
+        databasePathText.Text  = string.Empty;
+        statePathText.Text     = string.Empty;
+        loginUrlText.Text      = string.Empty;
+        loginUsernameText.Text = string.Empty;
+        loginPasswordText.Text = string.Empty;
     }
 
     /// <summary></summary>
-    private void OnShown(object source, EventArgs e)
+    private void OnShown(object source, EventArgs e) { }
+
+    /// <summary></summary>
+    private void OnFormClosing(object source, FormClosingEventArgs e)
     {
+        _dataLoader?.Dispose();
+        _dataLoader = null;
     }
 
     /// <summary></summary>
-    private void OnFileSaveToCsvMenuClick(object source, EventArgs e)
+    private async void OnFileSaveToCsvMenuClick(object source, EventArgs e)
     {
-        throw new NotImplementedException();
+        if(_loginListViewItems == null
+                || _loginListViewItems.Length == 0)
+        {
+            // TODO Message
+            return;
+        }
+
+        if(_osCrypt == null)
+        {
+            // TODO Message
+            return;
+        }
+
+        var protectionScope = (protectionScopeSelector.SelectedItem != null
+                && protectionScopeSelector.SelectedItem is DataProtectionScope)
+            ? (DataProtectionScope)protectionScopeSelector.SelectedItem
+            : DataProtectionScope.CurrentUser;
+
+        string? csvPath = null;
+        try
+        {
+            using var dlg = new SaveFileDialog();
+            dlg.FilterIndex      = 1;
+            dlg.Filter           = "Csvファイル(*.csv)|*.csv|全てのファイル(*.*)|*.*";
+            dlg.RestoreDirectory = true;
+            dlg.FileName         = $"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.csv";
+
+            if(DialogResult.OK == dlg.ShowDialog(this))
+            {
+                csvPath = dlg.FileName;
+
+                var encryptedKey = System.Convert.FromBase64String(_osCrypt.EncryptedKey);
+                var encryptedLogins = _loginListViewItems
+                    .Where(item => item.Tag != null && item.Tag is Chloris.Chrome.Data.Login)
+                    .Select(item => (Chloris.Chrome.Data.Login)item.Tag)
+                    .Select(item => new Chloris.Chrome.Data.DecryptLogin(
+                                id:         item.Id,
+                                originUrl:  item.OriginUrl,
+                                username:   item.UserNameValue,
+                                password:   ((item.PasswordValue != null)
+                                    ? Encoding.UTF8.GetString(Chloris.Chrome
+                                        .Cryptor
+                                        .GoogleChromePasswordValueDecrypt(encryptedKey, item.PasswordValue, protectionScope))
+                                    : string.Empty),
+                                createdAt:  item.DateCreated,
+                                lastUsedAt: item.DateLastUsed));
+
+#if DEBUG
+                Debug.WriteLine($"DEBUG | {encryptedLogins.Count()}");
+                foreach(var eLogin in encryptedLogins)
+                {
+                    Debug.WriteLine($"\t{eLogin.OriginUrl} {eLogin.Password}");
+                }
+#endif
+                await Chloris.Chrome.IO.Csv.WriteAsync(
+                        path:              csvPath,
+                        records:           encryptedLogins,
+                        encoding:          Encoding.UTF8/*Encoding.GetEncoding(932)*/,
+                        cancellationToken: CancellationToken.None);
+
+                MessageBox.Show(
+                        caption: "成功",
+                        text:    $"複合化データを \"{csvPath}\" に保存しました.",
+                        icon:    MessageBoxIcon.Information,
+                        buttons: MessageBoxButtons.OK);
+            }
+        }
+        catch(Exception ex)
+        {
+            if(csvPath != null && File.Exists(csvPath))
+            {
+                // 何かしらの理由で Csv の保存に失敗した場合は途中のファイルを破棄する.
+                try
+                {
+                    File.Delete(path: csvPath);
+                } catch { }
+            }
+
+#if DEBUG
+            Debug.WriteLine($"ERROR | {ex.GetType().FullName}");
+            Debug.WriteLine(ex.StackTrace);
+#endif
+
+            MessageBox.Show(
+                    caption: "エラー",
+                    text:    "複合化ファイルの保存に失敗しました.\r\n" + $"{ex.GetType().Name} {ex.Message}",
+                    icon:    MessageBoxIcon.Error,
+                    buttons: MessageBoxButtons.OK);
+        }
     }
 
     /// <summary></summary>
-    private async void OnFileSearchLoginDataMenuClick(object source, EventArgs e)
+    private void OnFileSearchLoginDataMenuClick(object source, EventArgs e)
     {
         var chromeAppDirectory = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -78,11 +203,7 @@ public partial class MainForm : Form
         if(loginDataPaths.Length == 1 && localStatePaths.Length == 1)
         {
             databasePathText.Text = loginDataPaths[0];
-            statePathText.Text = localStatePaths[0];
-
-            _dataLoader = await GetDataLoaderAsync(
-                    dataSource:     loginDataPaths[0],
-                    localStatePath: localStatePaths[0]);
+            statePathText.Text    = localStatePaths[0];
         }
         else
         {
@@ -93,7 +214,6 @@ public partial class MainForm : Form
                     icon: MessageBoxIcon.Warning,
                     buttons: MessageBoxButtons.OK);
                     */
-
             using(var dlg = new Forms.LocalDataSelectorForm())
             {
                 dlg.LoginDataPaths  = loginDataPaths;
@@ -101,26 +221,11 @@ public partial class MainForm : Form
 
                 if(DialogResult.OK == dlg.ShowDialog(this))
                 {
-                    databasePathText.Text = dlg.SelectedLoginDataPath ?? string.Empty;
+                    databasePathText.Text = dlg.SelectedLoginDataPath  ?? string.Empty;
                     statePathText.Text    = dlg.SelectedLocalStatePath ?? string.Empty;
-
-                    // TODO 安全性の検証
-                    _dataLoader = await GetDataLoaderAsync(
-                            dataSource:     databasePathText.Text,
-                            localStatePath: statePathText.Text);
                 }
             }
         }
-#if DEBUG
-        foreach(var loginDataPath in loginDataPaths)
-        {
-            Debug.WriteLine(loginDataPath);
-        }
-        foreach(var localStatePath in localStatePaths)
-        {
-            Debug.WriteLine(localStatePath);
-        }
-#endif
     }
 
     /// <summary></summary>
@@ -130,33 +235,70 @@ public partial class MainForm : Form
     }
 
     /// <summary></summary>
-    private async void OnChooseDatabaseClick(object source, EventArgs e)
+    private void OnChooseDatabaseClick(object source, EventArgs e)
     {
         var path = ChooseFile(filter: "データベースファイル(*.db)|*.db|全てのファイル(*.*)|*.*");
         if(path != null)
         {
             databasePathText.Text = path;
         }
-
-        _dataLoader = await GetDataLoaderAsync(databasePathText.Text, statePathText.Text);
     }
 
     /// <summary></summary>
-    private async void OnChooseStateClick(object source, EventArgs e)
+    private void OnChooseStateClick(object source, EventArgs e)
     {
         var path = ChooseFile(filter: "JSONファイル(*.json)|*.json|全てのファイル(*.*)|*.*");
         if(path != null)
         {
             statePathText.Text = path;
         }
+    }
 
-        _dataLoader = await GetDataLoaderAsync(databasePathText.Text, statePathText.Text);
+    /// <summary></summary>
+    private async void OnDbConnectClick(object source, EventArgs e)
+    {
+        if(! IsDbOpened)
+        {
+            // 接続
+            try
+            {
+                var dataSourcePath = databasePathText.Text;
+                var localStatePath = statePathText.Text;
+
+                _dataLoader?.Dispose();
+                _dataLoader = await GetDataLoaderAsync(
+                        dataSourcePath,
+                        localStatePath,
+                        CancellationToken.None);
+
+                IsDbOpened = true;
+            }
+            catch(Exception ex)
+            {
+#if DEBUG
+                Debug.WriteLine($"ERROR | {ex.GetType().FullName} {ex.Message}");
+                Debug.WriteLine(ex.StackTrace);
+#endif
+
+                // TODO Message
+                IsDbOpened = false;
+            }
+        }
+        else
+        {
+            // 切断
+            _dataLoader?.Dispose();
+            _dataLoader = null;
+
+            IsDbOpened = false;
+        }
     }
 
     /// <summary></summary>
     private void OnLoginRetrieveVirtualItem(object source, RetrieveVirtualItemEventArgs e)
     {
-        if(_loginListViewItems != null && _loginListViewItems.Length > e.ItemIndex)
+        if(_loginListViewItems != null
+                && _loginListViewItems.Length > e.ItemIndex)
         {
             e.Item = _loginListViewItems[e.ItemIndex];
         }
@@ -232,14 +374,12 @@ public partial class MainForm : Form
             string localStatePath,
             CancellationToken cancellationToken = default(CancellationToken))
     {
-        if(string.IsNullOrEmpty(dataSource)
-                || string.IsNullOrEmpty(localStatePath)
-                || ! File.Exists(dataSource)
+        if(! File.Exists(dataSource)
                 || ! File.Exists(localStatePath))
             return null;
 
         var dataLoader = new DataLoader(
-                dataSource: dataSource,
+                dataSource:     dataSource,
                 localStatePath: localStatePath);
 
         try

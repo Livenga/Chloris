@@ -64,6 +64,7 @@
             this.loginPasswordLabel = new System.Windows.Forms.Label();
             this.loginPasswordText = new System.Windows.Forms.TextBox();
             this.chromeNoticeLabel = new System.Windows.Forms.Label();
+            this.dbConnectButton = new System.Windows.Forms.Button();
             this.inputFileGroup.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.decryptGroup.SuspendLayout();
@@ -153,7 +154,7 @@
             this.fileMenu});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1025, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1064, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -201,10 +202,10 @@
             // 
             // statusStrip
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 674);
+            this.statusStrip.Location = new System.Drawing.Point(0, 699);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1025, 22);
-            this.statusStrip.TabIndex = 10;
+            this.statusStrip.Size = new System.Drawing.Size(1064, 22);
+            this.statusStrip.TabIndex = 11;
             this.statusStrip.Text = "statusStrip1";
             // 
             // loginList
@@ -222,10 +223,10 @@
             this.loginList.FullRowSelect = true;
             this.loginList.GridLines = true;
             this.loginList.HideSelection = false;
-            this.loginList.Location = new System.Drawing.Point(12, 296);
+            this.loginList.Location = new System.Drawing.Point(12, 320);
             this.loginList.Name = "loginList";
-            this.loginList.Size = new System.Drawing.Size(1001, 238);
-            this.loginList.TabIndex = 8;
+            this.loginList.Size = new System.Drawing.Size(1040, 239);
+            this.loginList.TabIndex = 9;
             this.loginList.UseCompatibleStateImageBehavior = false;
             this.loginList.View = System.Windows.Forms.View.Details;
             this.loginList.VirtualMode = true;
@@ -264,19 +265,19 @@
             // loginsLabel
             // 
             this.loginsLabel.AutoSize = true;
-            this.loginsLabel.Location = new System.Drawing.Point(9, 275);
+            this.loginsLabel.Location = new System.Drawing.Point(9, 299);
             this.loginsLabel.Name = "loginsLabel";
             this.loginsLabel.Size = new System.Drawing.Size(45, 18);
-            this.loginsLabel.TabIndex = 7;
+            this.loginsLabel.TabIndex = 8;
             this.loginsLabel.Text = "&Logins";
             // 
             // encryptedKeyLabel
             // 
             this.encryptedKeyLabel.AutoSize = true;
-            this.encryptedKeyLabel.Location = new System.Drawing.Point(9, 164);
+            this.encryptedKeyLabel.Location = new System.Drawing.Point(9, 198);
             this.encryptedKeyLabel.Name = "encryptedKeyLabel";
             this.encryptedKeyLabel.Size = new System.Drawing.Size(68, 18);
-            this.encryptedKeyLabel.TabIndex = 5;
+            this.encryptedKeyLabel.TabIndex = 6;
             this.encryptedKeyLabel.Text = "暗号化キー";
             // 
             // encryptedKeyText
@@ -286,18 +287,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.encryptedKeyText.BackColor = System.Drawing.SystemColors.Control;
             this.encryptedKeyText.ForeColor = System.Drawing.Color.Blue;
-            this.encryptedKeyText.Location = new System.Drawing.Point(12, 185);
+            this.encryptedKeyText.Location = new System.Drawing.Point(12, 219);
             this.encryptedKeyText.Multiline = true;
             this.encryptedKeyText.Name = "encryptedKeyText";
             this.encryptedKeyText.ReadOnly = true;
             this.encryptedKeyText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.encryptedKeyText.Size = new System.Drawing.Size(1001, 77);
-            this.encryptedKeyText.TabIndex = 6;
+            this.encryptedKeyText.Size = new System.Drawing.Size(1040, 77);
+            this.encryptedKeyText.TabIndex = 7;
             // 
             // protectionScopeLabel
             // 
             this.protectionScopeLabel.AutoSize = true;
-            this.protectionScopeLabel.Location = new System.Drawing.Point(579, 31);
+            this.protectionScopeLabel.Location = new System.Drawing.Point(561, 27);
             this.protectionScopeLabel.Name = "protectionScopeLabel";
             this.protectionScopeLabel.Size = new System.Drawing.Size(130, 18);
             this.protectionScopeLabel.TabIndex = 3;
@@ -307,7 +308,7 @@
             // 
             this.protectionScopeSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.protectionScopeSelector.FormattingEnabled = true;
-            this.protectionScopeSelector.Location = new System.Drawing.Point(582, 52);
+            this.protectionScopeSelector.Location = new System.Drawing.Point(564, 48);
             this.protectionScopeSelector.Name = "protectionScopeSelector";
             this.protectionScopeSelector.Size = new System.Drawing.Size(259, 26);
             this.protectionScopeSelector.TabIndex = 4;
@@ -316,10 +317,10 @@
             // 
             this.decryptGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.decryptGroup.Controls.Add(this.tableLayoutPanel1);
-            this.decryptGroup.Location = new System.Drawing.Point(12, 540);
+            this.decryptGroup.Location = new System.Drawing.Point(12, 565);
             this.decryptGroup.Name = "decryptGroup";
             this.decryptGroup.Size = new System.Drawing.Size(483, 131);
-            this.decryptGroup.TabIndex = 9;
+            this.decryptGroup.TabIndex = 10;
             this.decryptGroup.TabStop = false;
             this.decryptGroup.Text = "複合化";
             // 
@@ -435,11 +436,22 @@
             this.chromeNoticeLabel.Text = "アプリケーションデータディレクトリに存在するデータを対象に複合化を実行する際,\r\nGoogle Chrome が起動中の場合データベースにロックが掛かっているため" +
     "予期せぬ動作を起こします.";
             // 
+            // dbConnectButton
+            // 
+            this.dbConnectButton.Location = new System.Drawing.Point(12, 160);
+            this.dbConnectButton.Name = "dbConnectButton";
+            this.dbConnectButton.Size = new System.Drawing.Size(120, 28);
+            this.dbConnectButton.TabIndex = 5;
+            this.dbConnectButton.Text = "接続(&C)";
+            this.dbConnectButton.UseVisualStyleBackColor = true;
+            this.dbConnectButton.Click += new System.EventHandler(this.OnDbConnectClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 696);
+            this.ClientSize = new System.Drawing.Size(1064, 721);
+            this.Controls.Add(this.dbConnectButton);
             this.Controls.Add(this.chromeNoticeLabel);
             this.Controls.Add(this.decryptGroup);
             this.Controls.Add(this.protectionScopeSelector);
@@ -457,6 +469,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Google Chrome 複合化";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.Load += new System.EventHandler(this.OnLoad);
             this.inputFileGroup.ResumeLayout(false);
             this.inputFileGroup.PerformLayout();
@@ -507,6 +520,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileSaveCsvMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileSearchLoginDataMenuItem;
         private System.Windows.Forms.Label chromeNoticeLabel;
+        private System.Windows.Forms.Button dbConnectButton;
     }
 }
 
