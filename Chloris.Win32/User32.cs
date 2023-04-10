@@ -41,6 +41,14 @@ public static class User32
     public static extern IntPtr GetWindow([In]IntPtr hWnd, [In]uint uCmd);
 
     /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(GetWindowLongA), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Ansi)]
+    public static extern long GetWindowLongA(IntPtr hWnd, int nIndex);
+
+    /// <summary></summary>
+    [DllImport(L, EntryPoint = nameof(GetWindowLongW), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Unicode)]
+    public static extern long GetWindowLongW(IntPtr hWnd, int nIndex);
+
+    /// <summary></summary>
     [DllImport(L, EntryPoint = nameof(GetAncestor), SetLastError = true, ExactSpelling = false, CharSet = CharSet.Auto)]
     public static extern IntPtr GetAncestor([In]IntPtr hWnd, [In]uint gaFlags);
 
@@ -150,6 +158,11 @@ public static class User32
             [In,Out]IntPtr wParam,
             [In,Out]IntPtr lParam);
 
+
+    /// <summary></summary>
+    public static long GetWindowLong(IntPtr hWnd, int nIndex) => IsWindowUnicode(hWnd)
+        ? GetWindowLongW(hWnd, nIndex)
+        : GetWindowLongA(hWnd, nIndex);
 
     /// <summary></summary>
     public static int GetWindowTextLength(IntPtr hWnd) => IsWindowUnicode(hWnd)
