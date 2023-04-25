@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sci", "sci", "{80F18B5F-745
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.Iris", "sci\Chloris.Iris\Chloris.Iris.csproj", "{6B2932F4-21A9-4AD0-B42C-9FC477540906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chloris.IO", "Chloris.IO\Chloris.IO.csproj", "{A3602116-9108-4245-99AA-D1AB546939F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{6B2932F4-21A9-4AD0-B42C-9FC477540906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B2932F4-21A9-4AD0-B42C-9FC477540906}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B2932F4-21A9-4AD0-B42C-9FC477540906}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3602116-9108-4245-99AA-D1AB546939F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3602116-9108-4245-99AA-D1AB546939F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3602116-9108-4245-99AA-D1AB546939F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3602116-9108-4245-99AA-D1AB546939F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
